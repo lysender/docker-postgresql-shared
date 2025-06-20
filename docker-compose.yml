@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:17.5-bullseye
+    shm_size: 128mb
+    volumes:
+      - type: volume
+        source: data
+        target: /var/lib/postgresql/data
+        volume:
+           nocopy: true
+    ports:
+      - "${POSTGRES_PORTS}"
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    networks:
+      - pgsqlnet
+
+  adminer:
+    image: adminer
+    ports:
+      - "${ADMINER_PORTS}"
+    networks:
+      - pgsqlnet
+volumes:
+  data:
+networks:
+  pgsqlnet:
+    driver: bridge
