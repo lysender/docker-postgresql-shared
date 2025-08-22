@@ -15,12 +15,6 @@ services:
     networks:
       - pgsqlnet
 
-  adminer:
-    image: adminer
-    ports:
-      - "${ADMINER_PORTS}"
-    networks:
-      - pgsqlnet
 volumes:
   data:
 networks:
