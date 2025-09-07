@@ -21,7 +21,6 @@ services:
       DB_HOST: "db"
       DB_USER: "${POSTGRES_USERNAME}"
       DB_PASSWORD: "${POSTGRES_PASSWORD}"
-      LISTEN_PORT: 6432
       AUTH_TYPE: "scram-sha-256"
       POOL_MODE: "transaction"
     ports:
