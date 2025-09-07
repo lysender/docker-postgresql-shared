@@ -11,9 +11,26 @@ services:
     ports:
       - "${POSTGRES_PORTS}"
     environment:
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_PASSWORD: "${POSTGRES_ROOT_PASSWORD}"
     networks:
       - pgsqlnet
+
+  pgbouncer:
+    image: bitnami/pgbouncer:1.24.1-debian-12-r10
+    environment:
+      PGBOUNCER_USER: "${PGBOUNCER_USER}"
+      PGBOUNCER_PASSWORD: "${PGBOUNCER_PASSWORD}"
+      PGBOUNCER_AUTH_TYPE: "scram-sha-256"
+      PGBOUNCER_POOL_MODE: "transaction"
+      PGBOUNCER_PORT: 6432
+      POSTGRESQL_HOST: "db"
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_USERNAME: "${POSTGRES_USERNAME}"
+      POSTGRESQL_PASSWORD: "${POSTGRES_PASSWORD}"
+    ports:
+      - "${PGBOUNCER_PORTS}"
+    depends_on:
+      - db
 
 volumes:
   data:
